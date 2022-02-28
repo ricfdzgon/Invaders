@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public SpriteRenderer cartel;
-    public bool gameOver=false;
+    public bool gameOver = false;
     public AudioClip audioDisparo;
     private AudioSource audioSource;
     private float speed = 2.8f;
@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     private Vector3 maxDerecha = new Vector3(5, -3, 0);
     private Vector3 spawnBala;
 
+    private SceneController sceneController;
     Rigidbody2D rb;
     Collider2D colider;
     void Start()
@@ -74,12 +75,22 @@ public class Player : MonoBehaviour
     }
     public void OnCollisionEnter2D(Collision2D colision)
     {
+        sceneController = FindObjectOfType<SceneController>();
         if (colision.gameObject.tag == "DEnemigo")
         {
-            gameOver = true;
-            cartel.enabled = true;
-            Debug.Log("GAME OVER");
+            sceneController.RestarVidas();
+            sceneController.ContadorVidasSprite();
+            if (sceneController.GetVidass() <= 0)
+            {
+                GameOver();
+            }
         }
     }
 
+    public void GameOver()
+    {
+        gameOver = true;
+        cartel.enabled = true;
+        Debug.Log("GAME OVER");
+    }
 }
