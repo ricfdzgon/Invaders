@@ -10,10 +10,12 @@ public class SceneController : MonoBehaviour
     private Vector3 primeraNave = new Vector3(-2.2f, 1.8f, 0f);
     private Vector3 colocacion;
     private int vidasPlayer;
+    private int totalEnemigos;
 
     public SpriteRenderer vida1, vida2, vida3;
     void Start()
     {
+        totalEnemigos = 30;
         vidasPlayer = 3;
         for (int i = 1; i <= 10; i++)
         {
@@ -36,7 +38,14 @@ public class SceneController : MonoBehaviour
     void Update()
     {
 
-
+    }
+    public void EliminarEnemigos()
+    {
+        totalEnemigos--;
+        if (totalEnemigos == 0)
+        {
+            Debug.Log("Ganador");
+        }
     }
 
     private void Spawn(GameObject prefab, Vector3 spawnPoint)
@@ -70,4 +79,6 @@ public class SceneController : MonoBehaviour
                 break;
         }
     }
+
+
 }

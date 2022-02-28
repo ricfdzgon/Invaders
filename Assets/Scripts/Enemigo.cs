@@ -19,6 +19,8 @@ public class Enemigo : MonoBehaviour
     Collider2D colider;
     private bool canShoot;
     private Player player;
+    private SceneController sceneController;
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -33,7 +35,11 @@ public class Enemigo : MonoBehaviour
         ganador = false;
 
     }
-
+    void OnDestroy()
+    {
+        sceneController = FindObjectOfType<SceneController>();
+        sceneController.EliminarEnemigos();
+    }
     void Update()
     {
         player = FindObjectOfType<Player>();
