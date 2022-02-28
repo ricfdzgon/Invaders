@@ -25,6 +25,11 @@ public class SceneController : MonoBehaviour
             colocacion = new Vector3(primeraNave.x + (distanciaLateral * i), primeraNave.y - 0.65f, primeraNave.z);
             Spawn(enemigo, colocacion);
         }
+        for (int i = 1; i <= 10; i++)
+        {
+            colocacion = new Vector3(primeraNave.x + (distanciaLateral * i), primeraNave.y + 0.65f, primeraNave.z);
+            Spawn(enemigo, colocacion);
+        }
 
     }
 
