@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
@@ -9,12 +10,13 @@ public class SceneController : MonoBehaviour
     private float distanciaVertical = 0.65f;
     private Vector3 primeraNave = new Vector3(-2.2f, 1.8f, 0f);
     private Vector3 colocacion;
-    private int vidasPlayer;
-    private int totalEnemigos;
+    private int vidasPlayer, totalEnemigos;
+    public SpriteRenderer vida1, vida2, vida3, win;
+    private Scene escenaActiva;
 
-    public SpriteRenderer vida1, vida2, vida3;
     void Start()
     {
+        escenaActiva = SceneManager.GetActiveScene();
         totalEnemigos = 30;
         vidasPlayer = 3;
         for (int i = 1; i <= 10; i++)
@@ -44,7 +46,7 @@ public class SceneController : MonoBehaviour
         totalEnemigos--;
         if (totalEnemigos == 0)
         {
-            Debug.Log("Ganador");
+            Win();
         }
     }
 
@@ -80,5 +82,17 @@ public class SceneController : MonoBehaviour
         }
     }
 
+    private void Win()
+    {
+        win.enabled = true;
+        Invoke("CargarEscena", 5f);
+    }
 
+    private void CargarEscena()
+    {
+        if (escenaActiva.name == "Primera")
+        {
+            SceneManager.LoadScene("SampleScene");
+        }
+    }
 }
