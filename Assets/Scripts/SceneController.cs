@@ -8,14 +8,16 @@ public class SceneController : MonoBehaviour
 {
     public GameObject enemigo;
     private float distanciaLateral = 0.65f;
-    private float distanciaVertical = 0.65f;
     private Vector3 primeraNave = new Vector3(-2.2f, 1.8f, 0f);
     private Vector3 colocacion;
     private int vidasPlayer, totalEnemigos;
     public int puntos;
+    private float tiempo = 180;
     public SpriteRenderer vida1, vida2, vida3, win;
     private Scene escenaActiva;
     public Text contadorPuntos;
+    public Text contadorTiempo;
+
 
     void Start()
     {
@@ -42,7 +44,16 @@ public class SceneController : MonoBehaviour
 
     void Update()
     {
-
+        if (tiempo >= 0)
+        {
+            tiempo -= Time.deltaTime;
+            contadorTiempo.text = formatearTiempo(tiempo);
+        }
+        else
+        {
+            contadorTiempo.text = "00:00";
+            GameOver();
+        }
     }
     public void EliminarEnemigos()
     {
@@ -104,5 +115,18 @@ public class SceneController : MonoBehaviour
     public void CambiarTextoPuntos()
     {
         contadorPuntos.text = puntos.ToString();
+    }
+
+    private string formatearTiempo(float tiempo)
+    {
+        string minutos = Mathf.Floor(tiempo / 60).ToString("00");
+        string segundos = Mathf.Floor(tiempo % 60).ToString("00");
+
+        return minutos + ":" + segundos;
+    }
+
+    private void GameOver()
+    {
+        Time.timeScale = 0;
     }
 }
