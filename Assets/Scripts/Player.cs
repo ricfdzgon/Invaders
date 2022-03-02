@@ -78,6 +78,12 @@ public class Player : MonoBehaviour
         sceneController = FindObjectOfType<SceneController>();
         if (colision.gameObject.tag == "DEnemigo")
         {
+            sceneController.puntos -= 1000;
+            if (sceneController.puntos < 0)
+            {
+                sceneController.puntos = 0;
+            }
+            sceneController.CambiarTextoPuntos();
             sceneController.RestarVidas();
             sceneController.ContadorVidasSprite();
             if (sceneController.GetVidass() <= 0)

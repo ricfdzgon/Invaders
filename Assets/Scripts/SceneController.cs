@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SceneController : MonoBehaviour
 {
@@ -11,8 +12,10 @@ public class SceneController : MonoBehaviour
     private Vector3 primeraNave = new Vector3(-2.2f, 1.8f, 0f);
     private Vector3 colocacion;
     private int vidasPlayer, totalEnemigos;
+    public int puntos;
     public SpriteRenderer vida1, vida2, vida3, win;
     private Scene escenaActiva;
+    public Text contadorPuntos;
 
     void Start()
     {
@@ -43,6 +46,8 @@ public class SceneController : MonoBehaviour
     }
     public void EliminarEnemigos()
     {
+        puntos += 100;
+        CambiarTextoPuntos();
         totalEnemigos--;
         if (totalEnemigos == 0)
         {
@@ -94,5 +99,10 @@ public class SceneController : MonoBehaviour
         {
             SceneManager.LoadScene("SampleScene");
         }
+    }
+
+    public void CambiarTextoPuntos()
+    {
+        contadorPuntos.text = puntos.ToString();
     }
 }
